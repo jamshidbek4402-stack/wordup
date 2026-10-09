@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="uz"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>WordUp – English speaking words</title>
+<style>
+:root{--bg:#e9edf7;--app:#fff;--ink:#161b2e;--mute:#6f7892;--card:#f3f5ff;--line:#e4e8f3;--pri:#5b4bdb;--ok:#22a366;--no:#e5484d;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0b0e18;--app:#141828;--ink:#eef0fa;--mute:#8d95b0;--card:#1d2236;--line:#272d45;--pri:#8b7dff}}
+:root[data-theme="dark"]{--bg:#0b0e18;--app:#141828;--ink:#eef0fa;--mute:#8d95b0;--card:#1d2236;--line:#272d45;--pri:#8b7dff}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}html,body{height:100%;margin:0}
+body{background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;display:flex;align-items:center;justify-content:center}
+.phone{width:100%;height:100%;background:var(--app);display:flex;flex-direction:column;overflow:hidden;position:relative}
+@media(min-width:600px){.phone{width:390px;height:780px;max-height:95vh;border-radius:42px;border:10px solid #0e1018;box-shadow:0 24px 70px rgba(0,0,0,.35)}}
+.hero{padding:22px 20px 18px;background:linear-gradient(135deg,#5b4bdb,#8e5bff 60%,#c25bff);color:#fff}
+.hero h1{margin:0;font-size:24px}.hero p{margin:4px 0 0;opacity:.85;font-size:13px}
+main{flex:1;overflow-y:auto;padding:16px 18px}
+.scr{display:none;flex-direction:column;height:100%}.scr.on{display:flex}
+h2{font-size:15px;margin:18px 0 4px;display:flex;justify-content:space-between}h2 small{color:var(--mute);font-weight:500}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:10px}
+.tile{aspect-ratio:1;border-radius:16px;border:1px solid var(--line);background:var(--card);color:var(--ink);display:flex;flex-direction:column;align-items:center;justify-content:center;font-weight:700;font-size:18px;cursor:pointer}
+.tile small{font-size:10px;color:var(--mute);font-weight:500}
+.tile.lock{opacity:.4;cursor:not-allowed}.tile.done{background:linear-gradient(135deg,#22a366,#3cc98a);color:#fff;border:0}.tile.done small{color:#e8fff3}
+button{font:inherit;border:0;border-radius:16px;padding:15px;font-weight:700;cursor:pointer;color:#fff}
+.pri{background:var(--pri)}.ok{background:var(--ok)}.no{background:var(--no)}.gh{background:var(--card);color:var(--ink)}
+.top{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.top .x{background:var(--card);color:var(--ink);padding:8px 13px;border-radius:12px}
+.bar{flex:1;height:8px;background:var(--line);border-radius:9px;overflow:hidden}.bar i{display:block;height:100%;width:100%;background:var(--pri);transition:width .1s linear}
+.bar i.low{background:var(--no)}
+.tm{font-weight:700;font-variant-numeric:tabular-nums;min-width:34px;text-align:right}
+.fc{flex:1;max-height:360px;background:var(--card);border:1px solid var(--line);border-radius:26px;padding:22px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;cursor:pointer;margin-bottom:14px;position:relative}
+.lv{position:absolute;top:14px;left:16px;font-size:11px;font-weight:700;color:var(--pri)}
+.sp{position:absolute;top:8px;right:10px;background:none;color:var(--pri);font-size:22px;padding:6px}
+.wd{font-size:36px;font-weight:800;word-break:break-word}.ipa{color:var(--mute);margin-top:6px;font-size:16px}
+.df{margin-top:18px;font-size:15px;line-height:1.4;min-height:44px}.df.h{filter:blur(8px);user-select:none}
+.tp{font-size:11px;color:var(--mute);margin-top:6px}
+.row{display:flex;gap:12px}.row button{flex:1}
+nav{display:flex;border-top:1px solid var(--line)}nav button{flex:1;background:none;color:var(--mute);border-radius:0;padding:14px}nav button.on{color:var(--pri)}
+input{font:inherit;width:100%;padding:13px;border-radius:14px;border:1px solid var(--line);background:var(--card);color:var(--ink);margin-bottom:10px}
+.it{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--line)}.it small{color:var(--mute)}.it button{background:none;color:var(--no);padding:6px}
+.big{font-size:60px;text-align:center;margin:30px 0 6px}.c{text-align:center}
+#fx{position:absolute;inset:0;pointer-events:none;z-index:5}
+#sad{position:absolute;left:0;right:0;top:32%;text-align:center;font-size:110px;z-index:6;pointer-events:none;opacity:0}
+#sad.go{animation:pop 1s ease}@keyframes pop{0%{opacity:0;transform:scale(.3)}25%{opacity:1;transform:scale(1.1)}80%{opacity:1}100%{opacity:0;transform:translateY(30px) scale(1)}}
+.hide{display:none!important}
+.card2{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:14px;margin-bottom:12px}.kp{display:grid;grid-template-columns:1fr 1fr;gap:10px}.kp .card2{margin:0;font-size:12px;color:var(--mute)}.kp b{font-size:24px;display:block;color:var(--ink)}.pb{height:8px;background:var(--line);border-radius:9px;overflow:hidden;margin-top:6px}.pb i{display:block;height:100%;background:var(--pri)}.d7{display:flex;align-items:flex-end;gap:6px;height:70px}.d7 div{flex:1;background:var(--pri);border-radius:6px 6px 0 0;min-height:3px}#sts{flex-shrink:0}
+</style><script data-goatcounter="https://jmashid.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</head><body>
+<div class="phone"><canvas id="fx"></canvas><div id="sad">😢</div>
+<div class="hero"><h1>WordUp 🚀</h1><p>Speaking uchun eng ko'p ishlatiladigan inglizcha so'zlar</p></div>
+<main>
+<section class="scr on" id="home"></section>
+<section class="scr" id="play">
+ <div class="top"><button class="x" id="qx">✕</button><div class="bar"><i id="tb"></i></div><div class="tm" id="tt">25</div></div>
+ <div class="fc" id="fc"><span class="lv" id="pl"></span><button class="sp" id="spk">🔊</button><button class="sp" id="mic" style="right:52px">🎤</button>
+  <div class="wd" id="w"></div><div class="ipa" id="ipa"></div><div class="df h" id="df"></div><div class="tp" id="tp">Ma'nosini ko'rish uchun bosing</div><div class="tp" id="mr" style="font-size:13px"></div></div>
+ <div class="row"><button class="no" id="bn">😕 Bilmadim</button><button class="ok" id="by">Bildim 🎉</button></div>
+</section>
+<section class="scr" id="res"><div class="big" id="re"></div><h2 class="c" style="justify-content:center;font-size:22px" id="rs"></h2><p class="c" id="rt" style="color:var(--mute)"></p>
+ <button class="pri" id="rn" style="margin-top:14px">Keyingi bosqich</button><button class="gh" id="rr" style="margin-top:10px">Qayta urinish</button><button class="gh" id="rh" style="margin-top:10px">Bosh sahifa</button></section>
+<section class="scr" id="stats"><h2 style="margin-top:0">Statistika</h2><div id="sts"></div></section>
+<section class="scr" id="pt"><div class="top"><button class="x" id="pqx">✕</button><b id="pqn"></b></div><div class="fc" style="flex:none;padding:26px;cursor:default"><div class="wd" id="pqw"></div><div class="ipa" id="pqi"></div></div><div style="margin:12px 0 8px;font-size:13px;color:var(--mute)">Qaysi ma'no to'g'ri?</div><div id="pqo"></div></section>
+<section class="scr" id="ptr"><div class="big">🎯</div><h2 class="c" style="justify-content:center;font-size:22px" id="prt"></h2><p class="c" id="prd" style="color:var(--mute);line-height:1.5"></p><button class="pri" id="prb" style="margin-top:14px"></button><button class="gh" id="prh" style="margin-top:10px">Bosh sahifa</button></section>
+<section class="scr" id="mine">
+ <h2 style="margin-top:0">O'z so'zlaringni qo'sh</h2>
+ <input id="mw" placeholder="So'z (masalan: reliable)"><input id="mi" placeholder="O'qilishi (ixtiyoriy)"><input id="md" placeholder="Ma'nosi / tarjimasi">
+ <button class="pri" id="ma" style="width:100%">Qo'shish</button>
+ <button class="gh" id="mp" style="width:100%;margin-top:10px">▶ Mening so'zlarimni mashq qilish</button>
+ <div id="ml" style="margin-top:12px"></div>
+</section>
+</main>
+<nav id="nv"><button class="on" id="n1">Bosqichlar</button><button id="n2">So'zlarim</button><button id="n3">Statistika</button></nav>
+</div>
+<script>
+var RAW=`#B1
+achieve|əˈtʃiːv|to succeed in doing something|erishmoq|She worked hard to achieve her goal.
+advice|ədˈvaɪs|a helpful suggestion|maslahat|Thanks for your advice.
+afford|əˈfɔːd|to have enough money for|(pulga) qurbi yetmoq|I can't afford a new phone.
+allow|əˈlaʊ|to let someone do something|ruxsat bermoq|My parents allow me to go out.
+anxious|ˈæŋkʃəs|worried and nervous|xavotirli|I feel anxious before exams.
+argue|ˈɑːɡjuː|to disagree angrily|bahslashmoq|They always argue about money.
+arrange|əˈreɪndʒ|to plan or organize|tashkil qilmoq|Let's arrange a meeting.
+attitude|ˈætɪtjuːd|the way you think or feel|munosabat|She has a positive attitude.
+avoid|əˈvɔɪd|to stay away from|qochmoq, yiroq bo'lmoq|I avoid fast food.
+awful|ˈɔːfəl|very bad|juda yomon|The weather was awful.
+borrow|ˈbɒrəʊ|to take and give back later|qarzga olmoq|Can I borrow your pen?
+brave|breɪv|not afraid of danger|jasur|He was brave to speak up.
+calm|kɑːm|quiet and relaxed|xotirjam|Stay calm and breathe.
+cancel|ˈkænsəl|to stop a planned event|bekor qilmoq|They cancelled the trip.
+careful|ˈkeəfəl|paying attention to avoid problems|ehtiyotkor|Be careful on the road.
+challenge|ˈtʃælɪndʒ|something difficult to do|sinov, qiyin vazifa|Learning English is a challenge.
+chance|tʃɑːns|an opportunity|imkoniyat|Give me a chance.
+comfortable|ˈkʌmftəbəl|relaxed and at ease|qulay|This chair is comfortable.
+complain|kəmˈpleɪn|to say you are unhappy|shikoyat qilmoq|He complains about everything.
+confident|ˈkɒnfɪdənt|sure about yourself|o'ziga ishongan|I feel confident today.
+consider|kənˈsɪdə|to think about carefully|o'ylab ko'rmoq|I'll consider your offer.
+convince|kənˈvɪns|to make someone believe|ishontirmoq|She convinced me to try.
+crowd|kraʊd|a large group of people|olomon|A big crowd waited outside.
+damage|ˈdæmɪdʒ|harm done to something|zarar|The storm caused damage.
+decide|dɪˈsaɪd|to make a choice|qaror qilmoq|I can't decide what to eat.
+delay|dɪˈleɪ|to make something late|kechiktirmoq|The flight was delayed.
+depend|dɪˈpend|to be decided by something|bog'liq bo'lmoq|It depends on the weather.
+deserve|dɪˈzɜːv|to earn or be worth|loyiq bo'lmoq|You deserve a rest.
+disappointed|ˌdɪsəˈpɔɪntɪd|sad because hopes failed|xafa bo'lgan|I was disappointed with the result.
+discuss|dɪˈskʌs|to talk about something|muhokama qilmoq|Let's discuss the plan.
+effort|ˈefət|hard work to do something|harakat, urinish|Thanks for your effort.
+embarrassed|ɪmˈbærəst|feeling shy or ashamed|xijolat bo'lgan|I felt embarrassed.
+enjoy|ɪnˈdʒɔɪ|to like doing something|zavqlanmoq|I enjoy reading.
+expect|ɪkˈspekt|to think something will happen|kutmoq|I expect good results.
+experience|ɪkˈspɪəriəns|knowledge from doing things|tajriba|She has a lot of experience.
+explain|ɪkˈspleɪn|to make something clear|tushuntirmoq|Can you explain this word?
+fair|feə|treating everyone equally|adolatli|That's not fair.
+familiar|fəˈmɪliə|well known to you|tanish|Your face looks familiar.
+forgive|fəˈɡɪv|to stop being angry at|kechirmoq|Please forgive me.
+funny|ˈfʌni|making you laugh|kulgili|That joke was funny.
+generous|ˈdʒenərəs|happy to give to others
+guess|ɡes|to say without being sure
+habit|ˈhæbɪt|something you do regularly
+helpful|ˈhelpfəl|giving help
+honest|ˈɒnɪst|telling the truth
+imagine|ɪˈmædʒɪn|to picture in your mind
+improve|ɪmˈpruːv|to get better
+invite|ɪnˈvaɪt|to ask someone to come
+journey|ˈdʒɜːni|a trip to another place
+lazy|ˈleɪzi|not wanting to work
+manage|ˈmænɪdʒ|to succeed in doing
+mistake|mɪˈsteɪk|something done wrong
+nervous|ˈnɜːvəs|a bit afraid or worried
+patient|ˈpeɪʃənt|able to wait calmly
+promise|ˈprɒmɪs|to say you will definitely do it
+realize|ˈriːəlaɪz|to suddenly understand
+refuse|rɪˈfjuːz|to say no
+share|ʃeə|to give part to others
+suggest|səˈdʒest|to offer an idea
+trust|trʌst|to believe in someone
+accept|əkˈsept|to agree to take something
+actually|ˈæktʃuəli|in fact, really
+add|æd|to put something with another thing
+agree|əˈɡriː|to have the same opinion
+amazing|əˈmeɪzɪŋ|very surprising and great
+angry|ˈæŋɡri|feeling strong displeasure
+appointment|əˈpɔɪntmənt|a planned meeting
+article|ˈɑːtɪkəl|a piece of writing in news
+attract|əˈtrækt|to draw interest or attention
+bored|bɔːd|not interested in anything
+believe|bɪˈliːv|to think something is true
+cheap|tʃiːp|not expensive
+choose|tʃuːz|to pick one thing
+clean|kliːn|not dirty
+climb|klaɪm|to go up something
+collect|kəˈlekt|to gather things together
+compare|kəmˈpeə|to look at the differences
+contact|ˈkɒntækt|to get in touch with
+continue|kənˈtɪnjuː|to keep doing something
+cook|kʊk|to prepare food with heat
+copy|ˈkɒpi|to make something the same
+cost|kɒst|the price of something
+count|kaʊnt|to say numbers in order
+dangerous|ˈdeɪndʒərəs|likely to cause harm
+dark|dɑːk|with little or no light
+decision|dɪˈsɪʒən|a choice you make
+difficult|ˈdɪfɪkəlt|not easy
+direction|dɪˈrekʃən|the way to go
+discover|dɪˈskʌvə|to find something new
+dream|driːm|images you see in sleep
+earn|ɜːn|to get money for work
+easy|ˈiːzi|not difficult
+empty|ˈempti|with nothing inside
+encourage|ɪnˈkʌrɪdʒ|to give someone confidence
+enough|ɪˈnʌf|as much as needed
+escape|ɪˈskeɪp|to get away from a place
+event|ɪˈvent|something that happens
+exactly|ɪɡˈzæktli|in every detail
+excited|ɪkˈsaɪtɪd|very happy about something
+exercise|ˈeksəsaɪz|physical activity for health
+expensive|ɪkˈspensɪv|costing a lot of money
+fail|feɪl|to not succeed
+fast|fɑːst|moving at high speed
+fault|fɔːlt|responsibility for a mistake
+fix|fɪks|to repair something
+follow|ˈfɒləʊ|to go after someone
+foreign|ˈfɒrɪn|from another country
+forget|fəˈɡet|to not remember
+free|friː|costing no money
+fresh|freʃ|new, clean, not old
+gift|ɡɪft|a present
+glad|ɡlæd|happy about something
+goal|ɡəʊl|something you want to achieve
+hate|heɪt|to dislike very much
+healthy|ˈhelθi|in good condition
+hide|haɪd|to put out of sight
+hope|həʊp|to wish for something
+huge|hjuːdʒ|extremely big
+hurry|ˈhʌri|to move or act fast
+idea|aɪˈdɪə|a thought or plan
+important|ɪmˈpɔːtənt|having great value
+introduce|ˌɪntrəˈdjuːs|to present someone new
+join|dʒɔɪn|to become a member
+joke|dʒəʊk|something said to make you laugh
+kind|kaɪnd|friendly and caring
+knowledge|ˈnɒlɪdʒ|what you know
+language|ˈlæŋɡwɪdʒ|a system of words
+laugh|lɑːf|to make a sound when something is funny
+lead|liːd|to go first and show the way
+leave|liːv|to go away from a place
+lie|laɪ|to say something untrue
+lonely|ˈləʊnli|sad from being alone
+lucky|ˈlʌki|having good luck
+meet|miːt|to come together with someone
+memory|ˈmeməri|the ability to remember
+mention|ˈmenʃən|to say something briefly
+miss|mɪs|to feel sad someone is absent
+natural|ˈnætʃrəl|made by nature
+notice|ˈnəʊtɪs|to see or become aware of
+offer|ˈɒfə|to give someone a chance to take
+order|ˈɔːdə|to ask for food or goods
+perfect|ˈpɜːfɪkt|without any faults
+polite|pəˈlaɪt|showing good manners
+prefer|prɪˈfɜː|to like one more than another
+prepare|prɪˈpeə|to get ready
+proud|praʊd|pleased about your success
+quiet|ˈkwaɪət|making little noise
+receive|rɪˈsiːv|to get something
+recommend|ˌrekəˈmend|to say something is good
+relax|rɪˈlæks|to rest and feel calm
+remind|rɪˈmaɪnd|to help someone remember
+safe|seɪf|not in danger
+serious|ˈsɪəriəs|important, not joking
+shy|ʃaɪ|nervous around people
+strange|streɪndʒ|unusual or surprising
+succeed|səkˈsiːd|to achieve what you wanted
+surprise|səˈpraɪz|something unexpected
+travel|ˈtrævəl|to go from one place to another
+useful|ˈjuːsfəl|helpful for doing something
+worry|ˈwʌri|to feel anxious about something
+abroad|əˈbrɔːd|in or to another country
+accident|ˈæksɪdənt|an unplanned event causing harm
+address|əˈdres|the place where someone lives
+admire|ədˈmaɪə|to respect and like someone
+afraid|əˈfreɪd|feeling fear
+alone|əˈləʊn|without other people
+ancient|ˈeɪnʃənt|very old
+apologize|əˈpɒlədʒaɪz|to say sorry
+attend|əˈtend|to be present at an event
+balance|ˈbæləns|a steady, equal position
+bill|bɪl|a paper showing what you owe
+blame|bleɪm|to say someone is at fault
+boring|ˈbɔːrɪŋ|not interesting
+breathe|briːð|to take air in and out
+bright|braɪt|full of light, or clever
+broken|ˈbrəʊkən|damaged and not working
+busy|ˈbɪzi|having a lot to do
+capital|ˈkæpɪtəl|the main city of a country
+carry|ˈkæri|to hold and take somewhere
+catch|kætʃ|to take hold of something moving
+celebrate|ˈselɪbreɪt|to enjoy a special day
+century|ˈsentʃəri|a period of 100 years
+certain|ˈsɜːtən|completely sure
+change|tʃeɪndʒ|to become or make different
+cheerful|ˈtʃɪəfəl|happy and positive
+compete|kəmˈpiːt|to try to win
+complete|kəmˈpliːt|to finish something
+connect|kəˈnekt|to join together
+couple|ˈkʌpəl|two people or things
+course|kɔːs|a series of lessons
+create|kriˈeɪt|to make something new
+culture|ˈkʌltʃə|the customs of a society
+customer|ˈkʌstəmə|a person who buys things
+daily|ˈdeɪli|happening every day
+deal|diːl|an agreement
+degree|dɪˈɡriː|a university qualification
+delicious|dɪˈlɪʃəs|tasting very good
+destroy|dɪˈstrɔɪ|to damage completely
+develop|dɪˈveləp|to grow or improve
+different|ˈdɪfrənt|not the same
+disagree|ˌdɪsəˈɡriː|to have a different opinion
+divide|dɪˈvaɪd|to split into parts
+doubt|daʊt|a feeling of not being sure
+enemy|ˈenəmi|someone who opposes you
+energy|ˈenədʒi|power to be active
+environment|ɪnˈvaɪrənmənt|the natural world around us
+equal|ˈiːkwəl|the same in amount
+especially|ɪˈspeʃəli|more than usual
+evening|ˈiːvnɪŋ|the end of the day
+evidence|ˈevɪdəns|facts that show something is true
+examine|ɪɡˈzæmɪn|to look at closely
+fashion|ˈfæʃən|the style of clothes
+favourite|ˈfeɪvərɪt|liked best
+fear|fɪə|a feeling of danger
+festival|ˈfestɪvəl|a special event with music
+final|ˈfaɪnəl|last
+flight|flaɪt|a journey by plane
+flexible|ˈfleksəbəl|able to change easily
+fortune|ˈfɔːtʃuːn|a lot of money, or luck
+freedom|ˈfriːdəm|the right to do what you want
+frequently|ˈfriːkwəntli|often
+gather|ˈɡæðə|to come or bring together
+gentle|ˈdʒentəl|soft and kind
+grateful|ˈɡreɪtfəl|thankful
+guide|ɡaɪd|to show the way
+handsome|ˈhænsəm|good-looking
+harm|hɑːm|to hurt or damage
+headache|ˈhedeɪk|a pain in the head
+height|haɪt|how tall something is
+hobby|ˈhɒbi|a free-time activity
+holiday|ˈhɒlɪdeɪ|time away from work
+humble|ˈhʌmbəl|not proud
+illness|ˈɪlnəs|a sickness
+income|ˈɪnkʌm|money you receive
+independent|ˌɪndɪˈpendənt|not needing others
+influence|ˈɪnfluəns|the power to change something
+injury|ˈɪndʒəri|harm to the body
+interview|ˈɪntəvjuː|a formal meeting for a job
+jealous|ˈdʒeləs|unhappy about others' success
+jewellery|ˈdʒuːəlri|rings, necklaces and similar items
+lack|læk|not having enough
+local|ˈləʊkəl|from the nearby area
+magic|ˈmædʒɪk|a mysterious power
+meal|miːl|food eaten at one time
+message|ˈmesɪdʒ|a written or spoken note
+modern|ˈmɒdən|new and up to date
+neighbour|ˈneɪbə|someone living next to you
+noisy|ˈnɔɪzi|making a lot of sound
+opinion|əˈpɪnjən|what you think about something
+opportunity|ˌɒpəˈtjuːnɪti|a good chance
+ordinary|ˈɔːdɪnri|normal, not special
+painful|ˈpeɪnfəl|causing pain
+personal|ˈpɜːsənəl|belonging to one person
+pleasant|ˈplezənt|nice and enjoyable
+popular|ˈpɒpjələ|liked by many people
+private|ˈpraɪvət|not for everyone
+probably|ˈprɒbəbli|very likely
+protect|prəˈtekt|to keep safe
+punish|ˈpʌnɪʃ|to give a penalty
+purpose|ˈpɜːpəs|the reason for doing something
+#B2
+absolutely|ˈæbsəluːtli|completely
+accomplish|əˈkʌmplɪʃ|to finish successfully
+acknowledge|əkˈnɒlɪdʒ|to accept as true
+adapt|əˈdæpt|to change to fit a situation
+ambition|æmˈbɪʃən|a strong wish to succeed
+apparently|əˈpærəntli|it seems that
+appreciate|əˈpriːʃieɪt|to be thankful for
+approach|əˈprəʊtʃ|a way of dealing with something
+available|əˈveɪləbəl|free to use or meet
+benefit|ˈbenɪfɪt|a good result or advantage
+cope|kəʊp|to deal with a problem
+commit|kəˈmɪt|to promise to do something
+concern|kənˈsɜːn|worry about something
+contribute|kənˈtrɪbjuːt|to give help or money
+demand|dɪˈmɑːnd|a strong request
+determined|dɪˈtɜːmɪnd|not giving up
+distract|dɪˈstrækt|to take attention away
+eventually|ɪˈventʃuəli|after a long time
+exaggerate|ɪɡˈzædʒəreɪt|to make it seem bigger
+frustrated|frʌˈstreɪtɪd|annoyed because you are stuck
+gradually|ˈɡrædʒuəli|slowly, step by step
+handle|ˈhændəl|to deal with
+hesitate|ˈhezɪteɪt|to pause before acting
+impact|ˈɪmpækt|a strong effect
+insist|ɪnˈsɪst|to say firmly
+involve|ɪnˈvɒlv|to include
+reluctant|rɪˈlʌktənt|not willing
+reliable|rɪˈlaɪəbəl|can be trusted
+overwhelmed|ˌəʊvəˈwelmd|feeling it is too much
+pressure|ˈpreʃə|stress to do something
+priority|praɪˈɒrɪti|the most important thing
+reputation|ˌrepjuˈteɪʃən|what people think of you
+struggle|ˈstrʌɡəl|to try hard with difficulty
+suitable|ˈsuːtəbəl|right for a purpose
+tend|tend|to usually do something
+tolerate|ˈtɒləreɪt|to accept without complaint
+unexpected|ˌʌnɪkˈspektɪd|surprising
+urgent|ˈɜːdʒənt|needing action now
+whereas|weəˈræz|while, in contrast
+willing|ˈwɪlɪŋ|ready to do something
+aspect|ˈæspekt|one part of a situation
+assume|əˈsjuːm|to think something is true
+attempt|əˈtempt|to try to do something
+awareness|əˈweənəs|knowing about something
+boost|buːst|to increase or improve
+capable|ˈkeɪpəbəl|having the ability to do
+circumstance|ˈsɜːkəmstəns|a condition of a situation
+clarify|ˈklærɪfaɪ|to make something clear
+consequence|ˈkɒnsɪkwəns|a result of an action
+criticize|ˈkrɪtɪsaɪz|to say what is wrong
+decline|dɪˈklaɪn|to become less
+dedicate|ˈdedɪkeɪt|to give time and effort
+dispute|dɪˈspjuːt|a serious argument
+drawback|ˈdrɔːbæk|a disadvantage
+emphasize|ˈemfəsaɪz|to give special importance
+encounter|ɪnˈkaʊntə|to meet unexpectedly
+estimate|ˈestɪmeɪt|to guess an amount
+expand|ɪkˈspænd|to become bigger
+feasible|ˈfiːzəbəl|possible to do
+flaw|flɔː|a fault or weakness
+genuine|ˈdʒenjuɪn|real and honest
+hinder|ˈhɪndə|to make something difficult
+implement|ˈɪmplɪment|to put a plan into action
+inspire|ɪnˈspaɪə|to give the wish to do something
+interfere|ˌɪntəˈfɪə|to get in the way
+maintain|meɪnˈteɪn|to keep in good condition
+negotiate|nɪˈɡəʊʃieɪt|to discuss to reach an agreement
+obstacle|ˈɒbstəkəl|something blocking progress
+outcome|ˈaʊtkʌm|the final result
+overcome|ˌəʊvəˈkʌm|to defeat a problem
+persuade|pəˈsweɪd|to make someone agree
+potential|pəˈtenʃəl|possible future ability
+reasonable|ˈriːzənəbəl|fair and sensible
+regret|rɪˈɡret|to feel sad about something done
+relevant|ˈreləvənt|connected to the topic
+reserve|rɪˈzɜːv|to book in advance
+resolve|rɪˈzɒlv|to find a solution
+respond|rɪˈspɒnd|to answer or react
+significant|sɪɡˈnɪfɪkənt|large or important
+temporary|ˈtemprəri|lasting a short time
+accurate|ˈækjərət|correct and exact|aniq, to'g'ri|The report was accurate.
+admit|ədˈmɪt|to say something is true|tan olmoq|He admitted his mistake.
+affect|əˈfekt|to have an influence on|ta'sir qilmoq|Stress affects your sleep.
+agenda|əˈdʒendə|a list of things to discuss|kun tartibi|What's on the agenda today?
+annoying|əˈnɔɪɪŋ|making you a little angry|g'ashga tegadigan|That noise is annoying.
+arrogant|ˈærəɡənt|too proud of yourself|manman|He is rude and arrogant.
+background|ˈbækɡraʊnd|your past and experience|kelib chiqish, fon|She has a strong background in math.
+cautious|ˈkɔːʃəs|careful to avoid danger|ehtiyotkor|Be cautious with strangers.
+conflict|ˈkɒnflɪkt|a serious disagreement|mojaro|They had a conflict at work.
+convenient|kənˈviːniənt|easy and suitable|qulay|Is Monday convenient for you?
+deadline|ˈdedlaɪn|the latest time to finish|so'nggi muddat|The deadline is Friday.
+defend|dɪˈfend|to protect from attack|himoya qilmoq|She defended her idea.
+disturb|dɪˈstɜːb|to interrupt someone|bezovta qilmoq|Sorry to disturb you.
+efficient|ɪˈfɪʃənt|working well without waste|samarali|This method is efficient.
+enormous|ɪˈnɔːməs|extremely large|ulkan|They have an enormous house.
+ensure|ɪnˈʃʊə|to make certain|ta'minlamoq|Please ensure the door is locked.
+essential|ɪˈsenʃəl|absolutely necessary|zarur|Sleep is essential for health.
+fluent|ˈfluːənt|able to speak easily|ravon|She is fluent in three languages.
+fulfil|fʊlˈfɪl|to do what was promised|bajarmoq|He fulfilled his promise.
+generate|ˈdʒenəreɪt|to produce something|yaratmoq|The idea generated interest.
+guarantee|ˌɡærənˈtiː|a firm promise|kafolat|The phone has a one-year guarantee.
+harsh|hɑːʃ|unkind or severe|qattiq|The criticism was harsh.
+illustrate|ˈɪləstreɪt|to show with examples|misol bilan ko'rsatmoq|Let me illustrate my point.
+initiative|ɪˈnɪʃətɪv|the ability to act first|tashabbus|She took the initiative.
+mature|məˈtʃʊə|fully grown and sensible|yetuk|He is mature for his age.
+motivate|ˈməʊtɪveɪt|to make someone want to act|rag'batlantirmoq|Good teachers motivate students.
+neglect|nɪˈɡlekt|to not take care of|e'tiborsiz qoldirmoq|Don't neglect your health.
+obvious|ˈɒbviəs|easy to see or understand|ravshan|The answer is obvious.
+occasionally|əˈkeɪʒənəli|sometimes, not often|ba'zan|I occasionally eat out.
+pursue|pəˈsjuː|to try to achieve|intilmoq|She pursued her dream.
+rely|rɪˈlaɪ|to depend on|tayanmoq|You can rely on me.
+shortage|ˈʃɔːtɪdʒ|not enough of something|tanqislik|There is a water shortage.
+simplify|ˈsɪmplɪfaɪ|to make easier to understand|soddalashtirmoq|Can you simplify the rules?
+stable|ˈsteɪbəl|steady, not changing|barqaror|The economy is stable.
+substantial|səbˈstænʃəl|large in amount|sezilarli|He made a substantial effort.
+supervise|ˈsuːpəvaɪz|to watch and direct work|nazorat qilmoq|Teachers supervise the exam.
+threat|θret|something that may cause harm|xavf, tahdid|Pollution is a threat.
+trend|trend|a general direction of change|tendensiya|It's a new trend in fashion.
+valid|ˈvælɪd|acceptable and correct|o'rinli, haqiqiy|That's a valid point.
+withdraw|wɪðˈdrɔː|to take back or away|qaytarib olmoq|She withdrew her application.
+#C1
+alleviate|əˈliːvieɪt|to make less severe
+ambiguous|æmˈbɪɡjuəs|having more than one meaning
+arbitrary|ˈɑːbɪtrəri|based on chance, not reason
+articulate|ɑːˈtɪkjuleɪt|to express clearly
+bewildered|bɪˈwɪldəd|very confused
+candid|ˈkændɪd|honest and direct
+coincide|ˌkəʊɪnˈsaɪd|to happen at the same time
+compelling|kəmˈpelɪŋ|very convincing
+conscious|ˈkɒnʃəs|aware of something
+consistent|kənˈsɪstənt|always the same
+contradict|ˌkɒntrəˈdɪkt|to say the opposite
+crucial|ˈkruːʃəl|extremely important
+deliberate|dɪˈlɪbərət|done on purpose
+dilemma|dɪˈlemə|a very hard choice
+diminish|dɪˈmɪnɪʃ|to become smaller
+elaborate|ɪˈlæbərət|detailed and complex
+elusive|ɪˈluːsɪv|hard to find or catch
+endeavour|ɪnˈdevə|a serious attempt
+enhance|ɪnˈhɑːns|to make better
+inevitable|ɪnˈevɪtəbəl|certain to happen
+integrity|ɪnˈteɡrɪti|being honest and moral
+intuition|ˌɪntjuˈɪʃən|a feeling without proof
+mediocre|ˌmiːdiˈəʊkə|not very good
+meticulous|məˈtɪkjələs|very careful with details
+nuance|ˈnjuːɑːns|a small difference
+obsolete|ˈɒbsəliːt|no longer used
+perceive|pəˈsiːv|to see or understand
+perpetual|pəˈpetʃuəl|never stopping
+pragmatic|præɡˈmætɪk|practical, not idealistic
+profound|prəˈfaʊnd|very deep
+resilient|rɪˈzɪliənt|quick to recover
+scrutiny|ˈskruːtɪni|close, careful examination
+skeptical|ˈskeptɪkəl|doubtful
+subtle|ˈsʌtəl|not obvious
+tangible|ˈtændʒɪbəl|real and clear
+thrive|θraɪv|to grow and do very well
+unprecedented|ʌnˈpresɪdentɪd|never happened before
+vulnerable|ˈvʌlnərəbəl|easily hurt
+withstand|wɪðˈstænd|to resist without damage
+sustain|səˈsteɪn|to keep going over time
+abandon|əˈbændən|to leave completely
+acquire|əˈkwaɪə|to get or gain
+advocate|ˈædvəkeɪt|to publicly support
+adverse|ˈædvɜːs|harmful or unfavorable
+allocate|ˈæləkeɪt|to give for a purpose
+anticipate|ænˈtɪsɪpeɪt|to expect and prepare for
+apprehensive|ˌæprɪˈhensɪv|anxious about the future
+arduous|ˈɑːdjuəs|very tiring and difficult
+assertive|əˈsɜːtɪv|confident and direct
+astute|əˈstjuːt|clever at judging people
+benevolent|bəˈnevələnt|kind and generous
+circumvent|ˌsɜːkəmˈvent|to find a way around
+cohesive|kəʊˈhiːsɪv|well connected as a whole
+comprehensive|ˌkɒmprɪˈhensɪv|including everything
+concise|kənˈsaɪs|short but clear
+conducive|kənˈdjuːsɪv|helping something happen
+discrepancy|dɪˈskrepənsi|a difference that should not exist
+eloquent|ˈeləkwənt|speaking clearly and well
+empirical|ɪmˈpɪrɪkəl|based on observation
+exacerbate|ɪɡˈzæsəbeɪt|to make worse
+facilitate|fəˈsɪlɪteɪt|to make easier
+formidable|ˈfɔːmɪdəbəl|impressive and hard to beat
+hinge|hɪndʒ|to depend completely on
+impartial|ɪmˈpɑːʃəl|fair, not taking sides
+implicit|ɪmˈplɪsɪt|suggested but not said
+inherent|ɪnˈhɪərənt|a natural part of something
+intricate|ˈɪntrɪkət|having many small parts
+lucrative|ˈluːkrətɪv|making a lot of money
+mitigate|ˈmɪtɪɡeɪt|to make less serious
+notion|ˈnəʊʃən|an idea or belief
+ostensibly|ɒˈstensɪbli|apparently, but maybe not truly
+paradox|ˈpærədɒks|a statement that seems contradictory
+plausible|ˈplɔːzəbəl|seeming possible to believe
+precarious|prɪˈkeəriəs|not safe or stable
+prevalent|ˈprevələnt|common at a particular time
+reinforce|ˌriːɪnˈfɔːs|to make stronger
+scrupulous|ˈskruːpjələs|very honest and careful
+spontaneous|spɒnˈteɪniəs|done without planning
+stringent|ˈstrɪndʒənt|strict and demanding
+undermine|ˌʌndəˈmaɪn|to weaken gradually
+accountable|əˈkaʊntəbəl|responsible for your actions|javobgar|Leaders must be accountable.
+aloof|əˈluːf|distant and unfriendly|begona, uzoq|He stayed aloof from the group.
+ambivalent|æmˈbɪvələnt|having mixed feelings|ikkilangan|I feel ambivalent about moving.
+aspire|əˈspaɪə|to strongly want to achieve|orzu qilmoq|She aspires to be a doctor.
+bias|ˈbaɪəs|an unfair preference|xolislik yo'qligi|The article shows bias.
+blunt|blʌnt|direct, sometimes rude|ochiq-oydin|Let me be blunt with you.
+cumbersome|ˈkʌmbəsəm|slow and difficult to use|noqulay|The process is cumbersome.
+curb|kɜːb|to control or limit|jilovlamoq|We must curb spending.
+daunting|ˈdɔːntɪŋ|scary because it is difficult|qo'rqituvchi|The task seemed daunting.
+detrimental|ˌdetrɪˈmentəl|causing harm|zararli|Stress is detrimental to health.
+diligent|ˈdɪlɪdʒənt|hard-working and careful|tirishqoq|She is a diligent student.
+disparity|dɪˈspærɪti|a big unfair difference|tengsizlik|There is a disparity in pay.
+dwindle|ˈdwɪndəl|to slowly become less|asta kamaymoq|Our savings dwindled.
+ephemeral|ɪˈfemərəl|lasting a very short time|o'tkinchi|Fame can be ephemeral.
+flourish|ˈflʌrɪʃ|to grow and do well|gullab-yashnamoq|Small businesses flourish here.
+foster|ˈfɒstə|to help something develop|rivojlantirmoq|Teachers foster creativity.
+frivolous|ˈfrɪvələs|not serious or important|yengil-yelpi|It was a frivolous complaint.
+gratuitous|ɡrəˈtjuːɪtəs|done without good reason|asossiz|The film has gratuitous violence.
+hamper|ˈhæmpə|to make progress difficult|to'sqinlik qilmoq|Rain hampered the search.
+hypothetical|ˌhaɪpəˈθetɪkəl|imagined, not real|faraziy|It's just a hypothetical question.
+indispensable|ˌɪndɪˈspensəbəl|absolutely necessary|ajralmas|Phones are indispensable today.
+inadvertently|ˌɪnədˈvɜːtəntli|without meaning to|bilmasdan|I inadvertently deleted the file.
+jeopardize|ˈdʒepədaɪz|to put in danger|xavf ostiga qo'ymoq|Don't jeopardize your future.
+lenient|ˈliːniənt|not strict|yumshoq|The teacher was lenient.
+marginal|ˈmɑːdʒɪnəl|very small|ahamiyatsiz|It was a marginal improvement.
+mundane|mʌnˈdeɪn|ordinary and boring|oddiy, zerikarli|He hated his mundane routine.
+negligible|ˈneɡlɪdʒəbəl|so small it is unimportant|e'tiborga olinmaydigan|The cost is negligible.
+obscure|əbˈskjʊə|not well known|noma'lum|He is an obscure author.
+pertinent|ˈpɜːtɪnənt|directly relevant|o'rinli|That's a pertinent question.
+pivotal|ˈpɪvətəl|very important to the result|hal qiluvchi|It was a pivotal moment.
+reconcile|ˈrekənsaɪl|to make things agree|yarashtirmoq|They reconciled after the fight.
+relentless|rɪˈlentləs|never stopping|to'xtovsiz|He faced relentless pressure.
+rigorous|ˈrɪɡərəs|very careful and strict|qat'iy|The tests were rigorous.
+serene|səˈriːn|calm and peaceful|sokin|The lake was serene.
+steadfast|ˈstedfɑːst|firm and loyal|sobit|She gave steadfast support.
+tedious|ˈtiːdiəs|long and boring|zerikarli|It was a tedious task.
+tenacious|təˈneɪʃəs|not giving up|qat'iyatli|He is a tenacious fighter.
+trivial|ˈtrɪviəl|not important|arzimas|Don't argue over trivial things.
+ubiquitous|juːˈbɪkwɪtəs|seen everywhere|hamma joyda uchraydigan|Smartphones are ubiquitous.
+verify|ˈverɪfaɪ|to check that it is true|tasdiqlamoq|Please verify your email.`;
+var $=function(i){return document.getElementById(i)},KEY="wordup-v1",T=25,PASS=18,N=20;
+var stages=[],lv;RAW.split("\n").forEach(function(l){if(l[0]=="#"){lv=l.slice(1);return}var p=l.split("|"),s=stages.filter(function(x){return x.lv==lv}),L=s[s.length-1];
+ if(!L||L.w.length>=N){L={lv:lv,n:s.length+1,id:lv+(s.length+1),w:[]};stages.push(L)}L.w.push({w:p[0],i:p[1],d:p[2],u:p[3],e:p[4],lv:lv})});
+var S={p:{},m:[],st:{},d:{}};try{S=Object.assign(S,JSON.parse(localStorage.getItem(KEY)||"{}"))}catch(e){}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
+function scr(n){["home","play","res","mine","stats","pt","ptr"].forEach(function(s){$(s).classList.toggle("on",s==n)});$("nv").classList.toggle("hide",n=="play"||n=="res"||n=="pt"||n=="ptr");$("n1").classList.toggle("on",n=="home");$("n2").classList.toggle("on",n=="mine");$("n3").classList.toggle("on",n=="stats")}
+var NAMES={B1:"B1 · O'rta",B2:"B2 · Yuqori o'rta",C1:"C1 · Ilg'or"};
+function home(){var h=goalCard()+"<button class='gh' id='pt0' style='width:100%'>🎯 Darajangni aniqla (20 savol)</button>",open=true;["B1","B2","C1"].forEach(function(L){if(S.u&&S.u[L])open=true;var ss=stages.filter(function(s){return s.lv==L});
+ h+="<h2>"+NAMES[L]+"<small>"+ss.length*N+" so'z</small></h2><div class='grid'>";
+ ss.forEach(function(s){var p=S.p[s.id],ok=open;h+="<div class='tile "+(p!=null?"done":ok?"":"lock")+"' "+(ok?"onclick=\"go('"+s.id+"')\"":"")+">"+(p!=null?"✓":ok?s.n:"🔒")+"<small>"+(p!=null?p+"/"+N:ok?"boshlash":"yopiq")+"</small></div>";open=p!=null});h+="</div>"});
+ h+="<p style='color:var(--mute);font-size:12px;margin-top:18px'>Keyingi bosqichga o'tish uchun "+N+" tadan kamida "+PASS+" tasini bilish kerak. Har bir so'zga "+T+" soniya.</p>";$("home").innerHTML=h;$("gl").onclick=function(){var o=[10,20,30,50];S.g=o[(o.indexOf(S.g||20)+1)%4];save();home()};$("pt0").onclick=pt;scr("home")}
+var deck,idx,sc,cur,busy,t0,iv,sid;
+function shuf(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=a[i];a[i]=a[j];a[j]=t}return a}
+function go(id){sid=id;var s=stages.filter(function(x){return x.id==id})[0];start(s.w)}
+function start(w){deck=shuf(w);idx=0;sc=0;scr("play");nx()}
+function nx(){if(idx>=deck.length)return fin();cur=deck[idx];busy=false;$("w").textContent=cur.w;$("ipa").textContent=cur.i?"/"+cur.i+"/":"";$("df").innerHTML=esc(cur.d)+(cur.u?"<br><b>"+esc(cur.u)+"</b>":"")+(cur.e?"<br><i>"+esc(cur.e)+"</i>":"");$("mr").textContent="";$("df").classList.add("h");$("tp").style.visibility="visible";$("pl").textContent=(cur.lv||"Mening")+" · "+(idx+1)+"/"+deck.length;
+ t0=Date.now();clearInterval(iv);iv=setInterval(tick,100);tick();spk()}
+function tick(){var l=T-(Date.now()-t0)/1000;if(l<=0){$("tt").textContent="0";$("tb").style.width="0";ans(false);return}$("tt").textContent=Math.ceil(l);$("tb").style.width=l/T*100+"%";$("tb").classList.toggle("low",l<8)}
+function ans(ok){if(busy)return;busy=true;clearInterval(iv);if(ok)sc++;rec(ok);$("df").classList.remove("h");$("tp").style.visibility="hidden";fx(ok);setTimeout(function(){idx++;nx()},1100)}
+function spk(){try{speechSynthesis.cancel();var u=new SpeechSynthesisUtterance(cur.w);u.lang="en-US";u.rate=.9;speechSynthesis.speak(u)}catch(e){}}
+function fin(){clearInterval(iv);var ok=sid!="mine"&&sc>=PASS,gate=sid!="mine";
+ if(ok&&(S.p[sid]==null||sc>S.p[sid])){S.p[sid]=sc;save()}
+ $("re").textContent=gate?(ok?"🏆":"💪"):"✅";$("rs").textContent=sc+" / "+deck.length;
+ $("rt").textContent=gate?(ok?"Ajoyib! Keyingi bosqich ochildi.":"Keyingi bosqich uchun kamida "+PASS+" ta kerak. Yana urinib ko'r!"):"Mashq tugadi!";
+ var i=stages.map(function(s){return s.id}).indexOf(sid),nxt=stages[i+1];
+ $("rn").classList.toggle("hide",!(ok&&nxt));$("rr").classList.toggle("hide",false);scr("res");if(ok)fx(true)}
+$("rn").onclick=function(){var i=stages.map(function(s){return s.id}).indexOf(sid);go(stages[i+1].id)};
+$("rr").onclick=function(){sid=="mine"?mp():go(sid)};$("rh").onclick=home;
+$("fc").onclick=function(){$("df").classList.toggle("h");$("tp").style.visibility="hidden"};
+$("spk").onclick=function(e){e.stopPropagation();spk()};$("by").onclick=function(){ans(true)};$("bn").onclick=function(){ans(false)};
+$("qx").onclick=function(){clearInterval(iv);home()};$("n1").onclick=home;$("n2").onclick=function(){ml();scr("mine")};
+function ml(){var l=$("ml");l.innerHTML=S.m.length?"":"<p class='c' style='color:var(--mute)'>Hali so'z yo'q</p>";S.m.forEach(function(c,i){var d=document.createElement("div");d.className="it";var s=document.createElement("div"),b=document.createElement("b");b.textContent=c.w;var sm=document.createElement("small");sm.textContent=" "+c.d;s.appendChild(b);s.appendChild(sm);
+ var x=document.createElement("button");x.textContent="✕";x.onclick=function(){S.m.splice(i,1);save();ml()};d.appendChild(s);d.appendChild(x);l.appendChild(d)})}
+$("ma").onclick=function(){var w=$("mw").value.trim(),d=$("md").value.trim();if(!w||!d)return;S.m.unshift({w:w,i:$("mi").value.trim().replace(/\//g,""),d:d});save();$("mw").value=$("mi").value=$("md").value="";ml()};
+function mp(){if(!S.m.length)return;sid="mine";start(S.m)}$("mp").onclick=mp;
+var cv=$("fx"),cx=cv.getContext("2d"),P=[],raf;
+function fx(ok){if(!ok){var s=$("sad");s.classList.remove("go");void s.offsetWidth;s.classList.add("go");return}
+ cv.width=cv.offsetWidth;cv.height=cv.offsetHeight;var C=["#ff5d8f","#ffd23f","#3bceac","#5b4bdb","#ff8a3d","#4cc9f0"];
+ for(var i=0;i<90;i++)P.push({x:cv.width/2,y:cv.height*.55,vx:(Math.random()-.5)*14,vy:-Math.random()*15-3,r:Math.random()*6,c:C[i%6],s:Math.random()*5+4,l:70});
+ cancelAnimationFrame(raf);(function f(){cx.clearRect(0,0,cv.width,cv.height);P=P.filter(function(p){return p.l>0});P.forEach(function(p){p.x+=p.vx;p.y+=p.vy;p.vy+=.45;p.r+=.2;p.l--;cx.save();cx.translate(p.x,p.y);cx.rotate(p.r);cx.globalAlpha=Math.min(1,p.l/25);cx.fillStyle=p.c;cx.fillRect(-p.s/2,-p.s/2,p.s,p.s*1.6);cx.restore()});if(P.length)raf=requestAnimationFrame(f)})()}
+function dk(o){return new Date(Date.now()-o*864e5).toLocaleDateString("en-CA")}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+function rec(ok){var a=S.st[cur.w]||(S.st[cur.w]={r:0,w:0});ok?a.r++:a.w++;var t=dk(0);S.d[t]=(S.d[t]||0)+1;save()}
+function stats(){
+ var r=0,w=0,k,i;for(k in S.st){r+=S.st[k].r;w+=S.st[k].w}
+ var tot=r+w,sk=0;for(i=S.d[dk(0)]?0:1;S.d[dk(i)];i++)sk++;
+ var h="<div class='kp'><div class='card2'><b>"+tot+"</b>javob</div><div class='card2'><b>"+(tot?Math.round(r/tot*100):0)+"%</b>to'g'ri javob</div><div class='card2'><b>"+Object.keys(S.p).length+"/"+stages.length+"</b>bosqich o'tildi</div><div class='card2'><b>"+sk+" 🔥</b>kun ketma-ket</div></div><div style='height:12px'></div>";
+ h+="<div class='card2'><b style='font-size:15px'>Darajalar bo'yicha</b>";
+ ["B1","B2","C1"].forEach(function(L){var ss=stages.filter(function(s){return s.lv==L}),d=ss.filter(function(s){return S.p[s.id]!=null}).length;h+="<div style='margin-top:10px;font-size:13px'>"+L+" · "+d+"/"+ss.length+" bosqich<div class='pb'><i style='width:"+d/ss.length*100+"%'></i></div></div>"});
+ h+="</div>";
+ var ds=[],mx=1;for(i=6;i>=0;i--){var n=S.d[dk(i)]||0;ds.push(n);mx=Math.max(mx,n)}
+ h+="<div class='card2'><b style='font-size:15px'>Oxirgi 7 kun</b><div class='d7' style='margin-top:10px'>"+ds.map(function(n){return "<div style='height:"+n/mx*100+"%' title='"+n+"'></div>"}).join("")+"</div></div>";
+ var all={};stages.forEach(function(s){s.w.forEach(function(x){all[x.w]=x})});S.m.forEach(function(x){all[x.w]=all[x.w]||x});
+ var bad=Object.keys(S.st).filter(function(k){return S.st[k].w>0&&all[k]}).sort(function(a,b){return S.st[b].w-S.st[a].w||S.st[a].r-S.st[b].r}).slice(0,10);
+ h+="<div class='card2'><b style='font-size:15px'>Ko'p xato qilingan so'zlar</b>";
+ h+=bad.length?bad.map(function(k){return "<div class='it'><div><b>"+esc(k)+"</b> <small>"+esc(all[k].d)+"</small></div><small>❌"+S.st[k].w+" ✅"+S.st[k].r+"</small></div>"}).join("")+"<button class='pri' id='mk' style='width:100%;margin-top:12px'>Xatolarni takrorlash</button>":"<p style='color:var(--mute);margin:8px 0 0'>Hali xato yo'q. Mashq qilib ko'r!</p>";
+ h+="</div>";$("sts").innerHTML=h;
+ if($("mk"))$("mk").onclick=function(){sid="mine";start(bad.map(function(k){return all[k]}))};scr("stats")}
+$("n3").onclick=stats;
+function streak(){var k=0;for(var i=S.d[dk(0)]?0:1;S.d[dk(i)];i++)k++;return k}
+function goalCard(){var td=S.d[dk(0)]||0,g=S.g||20;return "<div class='card2' id='gl' style='cursor:pointer'><div style='display:flex;justify-content:space-between'><b>Bugungi maqsad</b><span>"+streak()+" 🔥</span></div><div style='font-size:13px;color:var(--mute);margin:4px 0 6px'>"+Math.min(td,g)+" / "+g+" javob "+(td>=g?"✅ Maqsad bajarildi!":"· maqsadni o'zgartirish uchun bos")+"</div><div class='pb'><i style='width:"+Math.min(100,td/g*100)+"%'></i></div></div>"}
+function mic(e){e.stopPropagation();var R=window.SpeechRecognition||window.webkitSpeechRecognition,m=$("mr");$("tp").style.visibility="hidden";
+ if(!R){m.textContent="Bu brauzer mikrofonni qo'llamaydi. Chrome'da sinab ko'r.";return}
+ var r=new R();r.lang="en-US";r.maxAlternatives=3;m.textContent="🎤 Tinglayapman...";
+ r.onresult=function(ev){var a=[].slice.call(ev.results[0]).map(function(x){return x.transcript.toLowerCase().replace(/[^a-z' ]/g,"").trim()});m.textContent=a.indexOf(cur.w.toLowerCase())>=0?"✅ Ajoyib talaffuz!":"❌ Eshitildi: "+a[0]+". Yana urinib ko'r"};
+ r.onerror=function(ev){m.textContent=ev.error=="not-allowed"?"Mikrofonga ruxsat berilmagan":"Mikrofon ishlamadi ("+ev.error+")"};
+ try{r.start()}catch(x){m.textContent="Mikrofonni ishga tushirib bo'lmadi"}}
+$("mic").onclick=mic;
+var Q,qi,qa;
+function pt(){var by={B1:[],B2:[],C1:[]};stages.forEach(function(s){s.w.forEach(function(x){by[x.lv].push(x)})});Q=[];
+ [["B1",7],["B2",7],["C1",6]].forEach(function(a){shuf(by[a[0]]).slice(0,a[1]).forEach(function(x){var ds=shuf(by[a[0]].filter(function(y){return y!==x})).slice(0,3).map(function(y){return y.d});Q.push({x:x,o:shuf(ds.concat(x.d))})})});
+ qi=0;qa={B1:0,B2:0,C1:0};scr("pt");pq()}
+function pq(){if(qi>=Q.length)return pr();var q=Q[qi],o=$("pqo");$("pqn").textContent=(qi+1)+" / "+Q.length;$("pqw").textContent=q.x.w;$("pqi").textContent=q.x.i?"/"+q.x.i+"/":"";o.innerHTML="";
+ q.o.forEach(function(t){var b=document.createElement("button");b.className="gh";b.style.cssText="width:100%;margin-bottom:10px;text-align:left";b.textContent=t;b.onclick=function(){if(t==q.x.d)qa[q.x.lv]++;qi++;pq()};o.appendChild(b)})}
+function pr(){var a=qa.B1/7,b=qa.B2/7,L="B1";if(a>=.7)L="B2";if(a>=.7&&b>=.7)L="C1";
+ $("prt").textContent="Tavsiya: "+L+" darajasi";$("prd").innerHTML="B1: "+qa.B1+"/7 · B2: "+qa.B2+"/7 · C1: "+qa.C1+"/6<br>Bu 20 savollik taxminiy natija. Xohlasang, istalgan darajadan boshlashing mumkin.";
+ $("prb").textContent=L=="B1"?"B1 dan boshlash":L+" dan boshlash";$("prb").onclick=function(){if(L!="B1"){S.u=S.u||{};S.u[L]=true;save()}home()};scr("ptr")}
+$("pqx").onclick=home;$("prh").onclick=home;
+home();
+</script></body></html>
