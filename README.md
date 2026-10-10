@@ -2,7 +2,7 @@
 
 A mobile-friendly web app for learning the most common spoken English words, built as a one-person CS project.
 
-**Live demo:** _add your GitHub Pages link here_
+**Live demo:** https://jamshidbek4402-stack.github.io/wordup/
 
 ## What it does
 - Flashcards with pronunciation (IPA), a short English definition, an Uzbek translation and an example sentence (translations are being added level by level)
@@ -17,7 +17,7 @@ A mobile-friendly web app for learning the most common spoken English words, bui
 Many learners know hundreds of words but cannot recall them quickly when speaking. This app uses short timed rounds and repeated review of mistakes to train fast recall.
 
 ## Tech
-Plain HTML, CSS and JavaScript in a single file. Progress is stored in the browser (localStorage), so there is no server or account yet.
+Plain HTML, CSS and JavaScript. It is a Progressive Web App (web manifest + service worker), so it can be installed on a phone home screen, opens full-screen like a native app and works offline. Progress is stored in the browser (localStorage), so there is no server or account yet.
 
 ## Roadmap
 - Grow the word list to 2,000 words with translations and examples
