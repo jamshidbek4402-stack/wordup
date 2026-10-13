@@ -1,5 +1,14 @@
 <!DOCTYPE html>
 <html lang="uz"><head><meta charset="utf-8">
+ <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-25VMEQN9X9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-25VMEQN9X9');
+</script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>WordUp – English speaking words</title>
 <link rel="manifest" href="manifest.webmanifest">
@@ -666,4 +675,11 @@ $("inst").onclick=function(){if(!dp)return;dp.prompt();dp.userChoice.then(functi
 window.addEventListener("appinstalled",function(){$("inst").classList.add("hide")});
 if("serviceWorker" in navigator){window.addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){})})}
 home();
+ <script>
+  document.addEventListener('click', function(e) {
+    if (e.target.tagName === 'A' || e.target.tagName === 'BUTTON') {
+      gtag('event', 'apk_download');
+    }
+  });
+</script>
 </script></body></html>
