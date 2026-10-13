@@ -673,11 +673,4 @@ $("inst").onclick=function(){if(!dp)return;dp.prompt();dp.userChoice.then(functi
 window.addEventListener("appinstalled",function(){$("inst").classList.add("hide")});
 if("serviceWorker" in navigator){window.addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){})})}
 home();
- <script>
-  document.addEventListener('click', function(e) {
-    if (e.target.tagName === 'A' || e.target.tagName === 'BUTTON') {
-      gtag('event', 'apk_download');
-    }
-  });
-</script>
 </script></body></html>
